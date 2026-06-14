@@ -4,7 +4,9 @@ crypto-algorithms
 
 About
 ---
-These are my implementations of some of Brad Conte's cryptography algorithms, adapted to work with [hash-distrib](https://github.com/rimopa/hash-distrib).
+These are my adaptations of some of Brad Conte's cryptography algorithms to work with [hash-distrib](https://github.com/rimopa/hash-distrib).
+
+You can find the all the original code on [crypto-algorithms](https://github.com/B-Con/crypto-algorithms).
 
 This code is released into the public domain free of any restrictions. The author requests acknowledgement if the code is used, but does not require it. This code is provided free of any liability and without any quality claims by the author.
 
