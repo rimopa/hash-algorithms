@@ -16,7 +16,7 @@ void djb2_init(djb2_CTX *ctx)
 void djb2_update(djb2_CTX *ctx, const char *buf, size_t len)
 {
     for (size_t i = 0; i < len; i++)
-        ctx->key = (ctx->key << 5) + ctx->key + buf[i];
+        ctx->key = (ctx->key << 5) + ctx->key + buf[i]; /*ctx->key * 33 + buf[i]*/
 }
 
 void djb2_final(djb2_CTX *ctx, uint64_t *out)
