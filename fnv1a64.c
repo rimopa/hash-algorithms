@@ -28,9 +28,6 @@ OTHER DEALINGS IN THE SOFTWARE.
 
 For more information, please refer to <http://unlicense.org/>
 */
-#ifndef FNV1A64_H_INCLUDED
-#define FNV1A64_H_INCLUDED
-
 #ifdef __cplusplus
 #include <cstdint>
 #include <string>
@@ -92,5 +89,3 @@ HashAPI hash_api(void)
 {
 	return api;
 }
-
-#endif
