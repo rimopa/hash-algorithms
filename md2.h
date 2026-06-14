@@ -56,7 +56,7 @@ void final(void *ctx, const unsigned char *out)
    md2_final((MD2_CTX *)ctx, (BYTE *)out);
 }
 
-HashAPI hash_api()
+HashAPI hash_api(void)
 {
    return api;
 }

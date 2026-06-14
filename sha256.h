@@ -58,7 +58,7 @@ void final(void *ctx, const unsigned char *out)
 	sha256_final((SHA256_CTX *)ctx, (BYTE *)out);
 }
 
-HashAPI hash_api()
+HashAPI hash_api(void)
 {
 	return api;
 }
