@@ -1,12 +1,11 @@
 /*********************************************************************
 * Filename:   md2.c
-* Author:     Brad Conte (brad AT bradconte.com)
-* Copyright:
+* Author:     Brad Conte (brad AT bradconte.com), rimopa (rimopapomir AT gmail.com)
 * Disclaimer: This code is presented "as is" without any guarantees.
 * Details:    Implementation of the MD2 hashing algorithm.
 				  Algorithm specification can be found here:
 				   * http://tools.ietf.org/html/rfc1319 .
-              Input is  little endian byte order.
+			  Input is  little endian byte order.
 *********************************************************************/
 
 /*************************** HEADER FILES ***************************/
@@ -101,4 +100,35 @@ void md2_final(MD2_CTX *ctx, BYTE hash[])
 	md2_transform(ctx, ctx->checksum);
 
 	memcpy(hash, ctx->state, MD2_BLOCK_SIZE);
+}
+
+/************************* HASH-DISTRIB CODE ************************/
+#include "hash_api.h"
+
+void init(void *ctx)
+{
+	md2_init((MD2_CTX *)ctx);
+}
+void update(void *ctx, const unsigned char *data, size_t len)
+{
+	md2_update((MD2_CTX *)ctx, (BYTE *)data, len);
+}
+void final(void *ctx, unsigned char *out)
+{
+	md2_final((MD2_CTX *)ctx, (BYTE *)out);
+}
+
+static const HashAPI api = {
+	.name = "MD2",
+
+	.ctx_size = sizeof(MD2_CTX),
+	.out_size = 16,
+
+	.init = init,
+	.update = update,
+	.final = final};
+
+HashAPI hash_api(void)
+{
+	return api;
 }

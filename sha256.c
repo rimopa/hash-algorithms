@@ -1,15 +1,14 @@
 /*********************************************************************
 * Filename:   sha256.c
-* Author:     Brad Conte (brad AT bradconte.com)
-* Copyright:
+* Author:     Brad Conte (brad AT bradconte.com), rimopa (rimopapomir AT gmail.com)
 * Disclaimer: This code is presented "as is" without any guarantees.
 * Details:    Implementation of the SHA-256 hashing algorithm.
-              SHA-256 is one of the three algorithms in the SHA2
-              specification. The others, SHA-384 and SHA-512, are not
-              offered in this implementation.
-              Algorithm specification can be found here:
-               * http://csrc.nist.gov/publications/fips/fips180-2/fips180-2withchangenotice.pdf
-              This implementation uses little endian byte order.
+			  SHA-256 is one of the three algorithms in the SHA2
+			  specification. The others, SHA-384 and SHA-512, are not
+			  offered in this implementation.
+			  Algorithm specification can be found here:
+			   * http://csrc.nist.gov/publications/fips/fips180-2/fips180-2withchangenotice.pdf
+			  This implementation uses little endian byte order.
 *********************************************************************/
 
 /*************************** HEADER FILES ***************************/
@@ -155,4 +154,35 @@ void sha256_final(SHA256_CTX *ctx, BYTE hash[])
 		hash[i + 24] = (ctx->state[6] >> (24 - i * 8)) & 0x000000ff;
 		hash[i + 28] = (ctx->state[7] >> (24 - i * 8)) & 0x000000ff;
 	}
+}
+
+/************************* HASH-DISTRIB CODE ************************/
+#include "hash_api.h"
+
+void init(void *ctx)
+{
+	sha256_init((SHA256_CTX *)ctx);
+}
+void update(void *ctx, const unsigned char *data, size_t len)
+{
+	sha256_update((SHA256_CTX *)ctx, (BYTE *)data, len);
+}
+void final(void *ctx, unsigned char *out)
+{
+	sha256_final((SHA256_CTX *)ctx, (BYTE *)out);
+}
+
+static const HashAPI api = {
+	.name = "SHA-256",
+
+	.ctx_size = sizeof(SHA256_CTX),
+	.out_size = 32,
+
+	.init = init,
+	.update = update,
+	.final = final};
+
+HashAPI hash_api(void)
+{
+	return api;
 }

@@ -1,12 +1,11 @@
 /*********************************************************************
 * Filename:   sha1.c
-* Author:     Brad Conte (brad AT bradconte.com)
-* Copyright:
+* Author:     Brad Conte (brad AT bradconte.com), rimopa (rimopapomir AT gmail.com)
 * Disclaimer: This code is presented "as is" without any guarantees.
 * Details:    Implementation of the SHA1 hashing algorithm.
-              Algorithm specification can be found here:
-               * http://csrc.nist.gov/publications/fips/fips180-2/fips180-2withchangenotice.pdf
-              This implementation uses little endian byte order.
+			  Algorithm specification can be found here:
+			   * http://csrc.nist.gov/publications/fips/fips180-2/fips180-2withchangenotice.pdf
+			  This implementation uses little endian byte order.
 *********************************************************************/
 
 /*************************** HEADER FILES ***************************/
@@ -146,4 +145,35 @@ void sha1_final(SHA1_CTX *ctx, BYTE hash[])
 		hash[i + 12] = (ctx->state[3] >> (24 - i * 8)) & 0x000000ff;
 		hash[i + 16] = (ctx->state[4] >> (24 - i * 8)) & 0x000000ff;
 	}
+}
+
+/************************* HASH-DISTRIB CODE ************************/
+#include "hash_api.h"
+
+void init(void *ctx)
+{
+	sha1_init((SHA1_CTX *)ctx);
+}
+void update(void *ctx, const unsigned char *data, size_t len)
+{
+	sha1_update((SHA1_CTX *)ctx, (BYTE *)data, len);
+}
+void final(void *ctx, unsigned char *out)
+{
+	sha1_final((SHA1_CTX *)ctx, (BYTE *)out);
+}
+
+static const HashAPI api = {
+	.name = "SHA-1",
+
+	.ctx_size = sizeof(SHA1_CTX),
+	.out_size = 20,
+
+	.init = init,
+	.update = update,
+	.final = final};
+
+HashAPI hash_api(void)
+{
+	return api;
 }

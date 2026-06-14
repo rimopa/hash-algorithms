@@ -1,6 +1,6 @@
 /*********************************************************************
  * Filename:   md5.h
- * Author:     Brad Conte (brad AT bradconte.com), rimopa (rimopapomir AT gmail.com)
+ * Author:     Brad Conte (brad AT bradconte.com)
  * Copyright:
  * Disclaimer: This code is presented "as is" without any guarantees.
  * Details:    Defines the API for the corresponding MD5 implementation.
@@ -13,13 +13,14 @@
 #include <stddef.h>
 
 /****************************** MACROS ******************************/
-#define MD5_BLOCK_SIZE 16               // MD5 outputs a 16 byte digest
+#define MD5_BLOCK_SIZE 16 // MD5 outputs a 16 byte digest
 
 /**************************** DATA TYPES ****************************/
-typedef unsigned char BYTE;             // 8-bit byte
-typedef unsigned int  WORD;             // 32-bit word, change to "long" for 16-bit machines
+typedef unsigned char BYTE; // 8-bit byte
+typedef unsigned int WORD;  // 32-bit word, change to "long" for 16-bit machines
 
-typedef struct {
+typedef struct
+{
    BYTE data[64];
    WORD datalen;
    unsigned long long bitlen;
@@ -31,35 +32,4 @@ void md5_init(MD5_CTX *ctx);
 void md5_update(MD5_CTX *ctx, const BYTE data[], size_t len);
 void md5_final(MD5_CTX *ctx, BYTE hash[]);
 
-/************************* HASH-DISTRIB CODE ************************/
-#include "hash_api.h"
-
-static const HashAPI api = {
-    .name = "MD5",
-
-    .ctx_size = sizeof(MD5_CTX),
-    .out_size = 16,
-
-    .init = init,
-    .update = update,
-    .final = final};
-
-void init(void *ctx)
-{
-   md5_init((MD5_CTX *)ctx);
-}
-void update(void *ctx, const unsigned char *data, size_t len)
-{
-   md5_update((MD5_CTX *)ctx, (BYTE *)data, len);
-}
-void final(void *ctx, const unsigned char *out)
-{
-   md5_final((MD5_CTX *)ctx, (BYTE *)out);
-}
-
-HashAPI hash_api(void)
-{
-   return api;
-}
-
-#endif   // MD5_H
+#endif // MD5_H

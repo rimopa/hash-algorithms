@@ -1,14 +1,11 @@
-crypto-algorithms
-=================
+# hash-algorithms
 
+Adaptations of hash algorithms to work with [hash-distrib](https://github.com/rimopa/hash-distrib).
 
-About
----
-These are my adaptations of some of Brad Conte's cryptography algorithms to work with [hash-distrib](https://github.com/rimopa/hash-distrib).
-
-You can find the all the original code on [crypto-algorithms](https://github.com/B-Con/crypto-algorithms).
-
-This code is released into the public domain free of any restrictions. The author requests acknowledgement if the code is used, but does not require it. This code is provided free of any liability and without any quality claims by the author.
+You can find the all the original code on:
+- [crypto-algorithms](https://github.com/B-Con/crypto-algorithms).
+- [fnv1a](https://github.com/irfantopal/fnv1a)
+- [djb2](https://gist.github.com/MohamedTaha98/ccdf734f13299efb73ff0b12f7ce429f)
 
 Note that these are *not* cryptographically secure implementations. They have no resistence to side-channel attacks and should not be used in contexts that need cryptographically secure implementations.
 

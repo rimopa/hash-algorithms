@@ -1,7 +1,6 @@
 /*********************************************************************
 * Filename:   hash_api.h
 * Author:     rimopa (rimopapomir AT gmail.com)
-* Copyright:
 * Disclaimer: This code is presented "as is" without any guarantees.
 * Details:    Header file for communicating information
               related to hash functions confidently and efficiently.

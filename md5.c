@@ -1,7 +1,6 @@
 /*********************************************************************
 * Filename:   md5.c
-* Author:     Brad Conte (brad AT bradconte.com)
-* Copyright:
+* Author:     Brad Conte (brad AT bradconte.com), rimopa (rimopapomir AT gmail.com)
 * Disclaimer: This code is presented "as is" without any guarantees.
 * Details:    Implementation of the MD5 hashing algorithm.
 				  Algorithm specification can be found here:
@@ -186,4 +185,35 @@ void md5_final(MD5_CTX *ctx, BYTE hash[])
 		hash[i + 8]  = (ctx->state[2] >> (i * 8)) & 0x000000ff;
 		hash[i + 12] = (ctx->state[3] >> (i * 8)) & 0x000000ff;
 	}
+}
+
+/************************* HASH-DISTRIB CODE ************************/
+#include "hash_api.h"
+
+void init(void *ctx)
+{
+	md5_init((MD5_CTX *)ctx);
+}
+void update(void *ctx, const unsigned char *data, size_t len)
+{
+	md5_update((MD5_CTX *)ctx, (BYTE *)data, len);
+}
+void final(void *ctx, unsigned char *out)
+{
+	md5_final((MD5_CTX *)ctx, (BYTE *)out);
+}
+
+static const HashAPI api = {
+	.name = "MD5",
+
+	.ctx_size = sizeof(MD5_CTX),
+	.out_size = 16,
+
+	.init = init,
+	.update = update,
+	.final = final};
+
+HashAPI hash_api(void)
+{
+	return api;
 }
