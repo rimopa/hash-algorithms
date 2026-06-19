@@ -14,7 +14,7 @@ void final(void *ctx, unsigned char *out)
     memcpy(out, &thirty_seven, sizeof(uint8_t));
 }
 
-static const HashAPI api = {
+const HashAPI hash_api = {
     .name = "I like 37",
 
     .ctx_size = 0,
@@ -23,8 +23,3 @@ static const HashAPI api = {
     .init = init,
     .update = update,
     .final = final};
-
-HashAPI hash_api(void)
-{
-    return api;
-}

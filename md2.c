@@ -118,7 +118,7 @@ void final(void *ctx, unsigned char *out)
 	md2_final((MD2_CTX *)ctx, (BYTE *)out);
 }
 
-static const HashAPI api = {
+static const HashAPI hash_api = {
 	.name = "MD2",
 
 	.ctx_size = sizeof(MD2_CTX),
@@ -127,8 +127,3 @@ static const HashAPI api = {
 	.init = init,
 	.update = update,
 	.final = final};
-
-HashAPI hash_api(void)
-{
-	return api;
-}

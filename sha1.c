@@ -163,7 +163,7 @@ void final(void *ctx, unsigned char *out)
 	sha1_final((SHA1_CTX *)ctx, (BYTE *)out);
 }
 
-static const HashAPI api = {
+const HashAPI hash_api = {
 	.name = "SHA-1",
 
 	.ctx_size = sizeof(SHA1_CTX),
@@ -172,8 +172,3 @@ static const HashAPI api = {
 	.init = init,
 	.update = update,
 	.final = final};
-
-HashAPI hash_api(void)
-{
-	return api;
-}

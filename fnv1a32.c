@@ -76,7 +76,7 @@ void final(void *ctx, unsigned char *out)
 	fnv1a32_final((fnv1a64_CTX *)ctx, (uint32_t *)out);
 }
 
-static const HashAPI api = {
+const HashAPI hash_api = {
 	.name = "FNV1a 32 bits",
 
 	.ctx_size = OUT_SIZE,
@@ -85,8 +85,3 @@ static const HashAPI api = {
 	.init = init,
 	.update = update,
 	.final = final};
-
-HashAPI hash_api(void)
-{
-	return api;
-}

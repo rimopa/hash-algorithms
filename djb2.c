@@ -37,7 +37,7 @@ void final(void *ctx, unsigned char *out)
     djb2_final((djb2_CTX *)ctx, (uint64_t *)out);
 }
 
-static const HashAPI api = {
+const HashAPI hash_api = {
     .name = "djb2",
 
     .ctx_size = OUT_SIZE,
@@ -46,8 +46,3 @@ static const HashAPI api = {
     .init = init,
     .update = update,
     .final = final};
-
-HashAPI hash_api(void)
-{
-    return api;
-}

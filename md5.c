@@ -203,7 +203,7 @@ void final(void *ctx, unsigned char *out)
 	md5_final((MD5_CTX *)ctx, (BYTE *)out);
 }
 
-static const HashAPI api = {
+const HashAPI hash_api = {
 	.name = "MD5",
 
 	.ctx_size = sizeof(MD5_CTX),
@@ -212,8 +212,3 @@ static const HashAPI api = {
 	.init = init,
 	.update = update,
 	.final = final};
-
-HashAPI hash_api(void)
-{
-	return api;
-}
